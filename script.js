@@ -159,14 +159,14 @@ function typeWriter(element, text, speed = 100) {
 const scrollTopBtn = document.createElement('button');
 scrollTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
 scrollTopBtn.classList.add('scroll-top-btn');
-scrollTopBtn.style.cssText = `
+    scrollTopBtn.style.cssText = `
     position: fixed;
     bottom: 30px;
     right: 30px;
     width: 50px;
     height: 50px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border-radius: 8px;
+    background: var(--primary-color);
     color: white;
     border: none;
     cursor: pointer;
@@ -175,10 +175,8 @@ scrollTopBtn.style.cssText = `
     transition: all 0.3s ease;
     z-index: 999;
     font-size: 1.2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-`;
-
-document.body.appendChild(scrollTopBtn);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+`;document.body.appendChild(scrollTopBtn);
 
 window.addEventListener('scroll', () => {
     if (window.pageYOffset > 300) {
@@ -233,8 +231,41 @@ window.addEventListener('scroll', () => {
 });
 
 // ============================================
+// Dark Mode Toggle
+// ============================================
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = themeToggle.querySelector('i');
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+// Check for saved theme preference or default to light mode
+const currentTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', currentTheme);
+
+// Update icon based on current theme
+if (currentTheme === 'dark') {
+    themeIcon.classList.remove('fa-moon');
+    themeIcon.classList.add('fa-sun');
+}
+
+themeToggle.addEventListener('click', () => {
+    let theme = document.documentElement.getAttribute('data-theme');
+    
+    if (theme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+    }
+});
+
+// ============================================
 // Console Message
 // ============================================
-console.log('%c👋 Bienvenue sur mon portfolio !', 'font-size: 20px; color: #6366f1; font-weight: bold;');
-console.log('%c🚀 Développé avec passion pour l\'IA et la Data Science', 'font-size: 14px; color: #8b5cf6;');
-console.log('%c💼 Téodore Autuly - Ingénieur Logiciel', 'font-size: 14px; color: #ec4899;');
+console.log('%c👋 Bienvenue sur mon portfolio !', 'font-size: 20px; color: #ff6b35; font-weight: bold;');
+console.log('%c🚀 Développé avec passion pour l\'IA et la Data Science', 'font-size: 14px; color: #f7931e;');
+console.log('%c💼 Téodore Autuly - Ingénieur Logiciel', 'font-size: 14px; color: #ff8c42;');
